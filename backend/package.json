@@ -1,0 +1,33 @@
+{
+  "name": "notes-api",
+  "version": "1.0.0",
+  "description": "REST API with Authentication and Role-Based Access for Notes Management",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "rest-api",
+    "authentication",
+    "jwt",
+    "role-based-access"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.5.0",
+    "jsonwebtoken": "^9.0.2",
+    "bcryptjs": "^2.4.3",
+    "joi": "^17.11.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "swagger-ui-express": "^5.0.0",
+    "swagger-jsdoc": "^6.2.8"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
