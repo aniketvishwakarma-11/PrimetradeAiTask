@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { adminAPI } from '../services/api';
 import '../styles/AdminPage.css';
 
 function AdminPage() {
@@ -32,37 +33,26 @@ function AdminPage() {
       setLoading(true);
       setError('');
       
-      const token = localStorage.getItem('token');
-      
       if (activeTab === 'users') {
-        const response = await fetch('http://localhost:5000/api/v1/admin/users', {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const data = await response.json();
-        if (data.success) {
-          setUsers(data.data);
+        const response = await adminAPI.getAllUsers();
+        if (response.data.success) {
+          setUsers(response.data.data);
         } else {
-          setError(data.message);
+          setError(response.data.message);
         }
       } else if (activeTab === 'notes') {
-        const response = await fetch('http://localhost:5000/api/v1/admin/notes', {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const data = await response.json();
-        if (data.success) {
-          setNotes(data.data);
+        const response = await adminAPI.getAllNotes();
+        if (response.data.success) {
+          setNotes(response.data.data);
         } else {
-          setError(data.message);
+          setError(response.data.message);
         }
       } else if (activeTab === 'stats') {
-        const response = await fetch('http://localhost:5000/api/v1/admin/stats', {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const data = await response.json();
-        if (data.success) {
-          setStats(data.data);
+        const response = await adminAPI.getStats();
+        if (response.data.success) {
+          setStats(response.data.data);
         } else {
-          setError(data.message);
+          setError(response.data.message);
         }
       }
     } catch (err) {
@@ -79,18 +69,13 @@ function AdminPage() {
     }
 
     try {
-      const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/v1/admin/users/${userId}`, {
-        method: 'DELETE',
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const data = await response.json();
+      const response = await adminAPI.deleteUser(userId);
 
-      if (data.success) {
+      if (response.data.success) {
         setUsers(users.filter(u => u._id !== userId));
         setError('');
       } else {
-        setError(data.message);
+        setError(response.data.message);
       }
     } catch (err) {
       setError('Failed to delete user');
@@ -104,18 +89,13 @@ function AdminPage() {
     }
 
     try {
-      const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/v1/admin/notes/${noteId}`, {
-        method: 'DELETE',
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const data = await response.json();
+      const response = await adminAPI.deleteNote(noteId);
 
-      if (data.success) {
+      if (response.data.success) {
         setNotes(notes.filter(n => n._id !== noteId));
         setError('');
       } else {
-        setError(data.message);
+        setError(response.data.message);
       }
     } catch (err) {
       setError('Failed to delete note');
@@ -130,24 +110,15 @@ function AdminPage() {
     }
 
     try {
-      const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/v1/admin/users/${userId}/role`, {
-        method: 'PUT',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ role: newRole }),
-      });
-      const data = await response.json();
+      const response = await adminAPI.updateUserRole(userId, newRole);
 
-      if (data.success) {
+      if (response.data.success) {
         setUsers(users.map(u => (u._id === userId ? { ...u, role: newRole } : u)));
         setSelectedUser(null);
         setNewRole('');
         setError('');
       } else {
-        setError(data.message);
+        setError(response.data.message);
       }
     } catch (err) {
       setError('Failed to update user role');

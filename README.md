@@ -64,6 +64,29 @@ npm run dev
 ```
 Runs on: http://localhost:5173
 
+**Environment Variables (Frontend):**
+Create `.env` file in the frontend directory:
+```
+VITE_API_URL=http://localhost:5000  # For local development
+```
+
+## 🚀 Deployment (Vercel/Production)
+
+For deployed applications, set the backend API URL as an environment variable:
+
+**On Vercel:**
+1. Go to your Vercel project settings
+2. Navigate to "Environment Variables"
+3. Add a new variable:
+   - **Name:** `VITE_API_URL`
+   - **Value:** `https://your-backend-api-url.com` (e.g., your deployed backend URL)
+4. Redeploy the frontend
+
+**Local Production Build:**
+```bash
+VITE_API_URL=https://your-backend-url.com npm run build
+```
+
 ## 🔐 Admin Access
 
 **Demo Credentials:**
