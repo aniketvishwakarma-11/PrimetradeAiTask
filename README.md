@@ -315,24 +315,6 @@ npm run dev
 
 ---
 
-## 👤 Admin Demo Access
-
-**Test Admin Credentials:**
-```
-Email: aniket1@gmail.com
-Password: 123456
-```
-
-**Admin Dashboard Features:**
-- View all registered users
-- Change user roles (User ↔ Admin)
-- Delete users (cascades to delete user's notes)
-- View all notes from all users
-- Delete any note
-- View system statistics (total users, admins, notes)
-
----
-
 ## 📊 Scalability Strategy
 
 ### Current Architecture
